@@ -1,4 +1,4 @@
-module.exports = function(app, passport, auth) {
+module.exports = function(app, passport, auth, io) {
     //User Routes
     var users = require('../app/controllers/users');
     app.get('/signin', users.signin);
@@ -75,4 +75,7 @@ module.exports = function(app, passport, auth) {
     var index = require('../app/controllers/index');
     app.get('/', index.render);
 
+    io.sockets.on('connection', function (socket) {
+      socket.emit('someEvent', {hello : 'world'});
+    });
 };
